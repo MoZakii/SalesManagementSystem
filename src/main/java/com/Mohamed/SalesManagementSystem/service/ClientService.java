@@ -1,7 +1,6 @@
 package com.Mohamed.SalesManagementSystem.service;
 
 import com.Mohamed.SalesManagementSystem.model.Client;
-import com.Mohamed.SalesManagementSystem.model.Product;
 import com.Mohamed.SalesManagementSystem.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,27 +18,25 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public void createClient(Client client){
-        clientRepository.save(client);
+    public Client createClient(Client client){
+        return clientRepository.save(client);
     }
 
-    //Check if fields exist
-    public void updateClient(Long id, Client updatedClient){
+    public Client updateClient(Long id, Client updatedClient){
         Optional<Client> client1 = clientRepository.findById(id);
         if(client1.isPresent()){
-            Client oldClient = client1.get();
-            oldClient.setName(updatedClient.getName());
-            oldClient.setLastName(updatedClient.getLastName());
-            oldClient.setMobile(updatedClient.getMobile());
-            oldClient.setEmail(updatedClient.getEmail());
-            oldClient.setAddress(updatedClient.getAddress());
-            clientRepository.save(oldClient);
+            updatedClient.setId(id);
+            return clientRepository.save(updatedClient);
         }
+        return null;
     }
 
-    public void deleteClient(Long id){
-        Optional<Client> client1 = clientRepository.findById(id);
-        client1.ifPresent(client -> clientRepository.delete(client));
+    public boolean deleteClient(Long id){
+        boolean exists = clientRepository.existsById(id);
+        if(exists){
+            clientRepository.deleteById(id);
+        }
+        return exists;
     }
 
 

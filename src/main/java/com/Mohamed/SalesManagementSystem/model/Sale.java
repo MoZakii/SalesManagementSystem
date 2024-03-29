@@ -1,9 +1,8 @@
 package com.Mohamed.SalesManagementSystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.Date;
 
@@ -14,9 +13,18 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Date is required")
     private Date creationDate;
 
+    @NotNull(message = "Client name is required")
     private String client;
+
+    @NotNull(message = "Seller name is required")
+    private String seller;
+
+    @NotNull(message = "Total is required")
+    @PositiveOrZero(message = "Total must be non-negative")
+    private Integer total;
 
     public Sale(Long id, Date creationDate, String client, String seller, Integer total) {
         this.id = id;
@@ -29,7 +37,7 @@ public class Sale {
     public Sale() {
     }
 
-    private String seller;
+
 
     public Long getId() {
         return id;
@@ -71,5 +79,5 @@ public class Sale {
         this.total = total;
     }
 
-    private Integer total;
+
 }

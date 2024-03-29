@@ -1,11 +1,8 @@
 package com.Mohamed.SalesManagementSystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.util.Date;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Client {
@@ -14,14 +11,20 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Name is required")
     private String name;
 
+    @NotNull(message = "Last name is required")
     private String lastName;
 
+    @NotNull(message = "Mobile number is required")
     private String mobile;
 
+    @NotNull(message = "Email is required")
+    @Email(message = "Email must have valid format")
     private String email;
 
+    @NotNull(message = "Address is required")
     private String address;
 
     public Client() {

@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,17 +17,27 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Name is required")
     private String name;
 
+
+    @NotNull(message = "Description is required")
     private String description;
 
+    @NotNull(message = "Category is required")
     private String category;
 
+    @NotNull(message = "Date is required")
+    @DateTimeFormat()
     private Date creationDate;
 
-    private Integer availableQuantity;
+    @NotNull(message = "Available quantity is required")
+    @PositiveOrZero(message = "Available quantity must be non-negative")
+    private int availableQuantity;
 
-    private Double price;
+    @NotNull(message = "Price is required")
+    @PositiveOrZero(message = "Price must be non-negative")
+    private double price;
 
     public Product(Long id, String name, String description, String category, Date creationDate, Integer availableQuantity, Double price) {
         this.id = id;

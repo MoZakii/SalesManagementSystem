@@ -18,27 +18,25 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void createProduct(Product product){
-        productRepository.save(product);
+    public Product createProduct(Product product){
+        return productRepository.save(product);
     }
 
-    // Check if not empty
-    public void updateProduct(Long id, Product updatedProduct){
+    public Product updateProduct(Long id, Product updatedProduct){
         Optional<Product> product1 = productRepository.findById(id);
         if(product1.isPresent()){
-            Product oldProduct = product1.get();
-            oldProduct.setName(updatedProduct.getName());
-            oldProduct.setCategory(updatedProduct.getCategory());
-            oldProduct.setDescription(updatedProduct.getDescription());
-            oldProduct.setPrice(updatedProduct.getPrice());
-            oldProduct.setAvailableQuantity(updatedProduct.getAvailableQuantity());
-            productRepository.save(oldProduct);
+            updatedProduct.setId(id);
+            return productRepository.save(updatedProduct);
         }
+        return null;
     }
 
-    public void deleteProduct(Long id){
-        Optional<Product> product1 = productRepository.findById(id);
-        product1.ifPresent(product -> productRepository.delete(product));
+    public boolean deleteProduct(Long id){
+        boolean exists = productRepository.existsById(id);
+        if(exists){
+            productRepository.deleteById(id);
+        }
+        return exists;
     }
 
 

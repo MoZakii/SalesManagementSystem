@@ -1,6 +1,5 @@
 package com.Mohamed.SalesManagementSystem.service;
 
-import com.Mohamed.SalesManagementSystem.model.Client;
 import com.Mohamed.SalesManagementSystem.model.Sale;
 import com.Mohamed.SalesManagementSystem.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,17 @@ public class SaleService {
         return saleRepository.findAll();
     }
 
-    public void createSale(Sale sale){
-        saleRepository.save(sale);
+    public Sale createSale(Sale sale){
+        return saleRepository.save(sale);
     }
 
-    public void updateSale(Long id, Sale updateSale){
+    public Sale updateSale(Long id, Sale updateSale){
         Optional<Sale> sale1 = saleRepository.findById(id);
         if(sale1.isPresent()){
-            Sale oldSale = sale1.get();
-            oldSale.setClient(updateSale.getClient());
-            oldSale.setSeller(updateSale.getSeller());
-            oldSale.setTotal(updateSale.getTotal());
-            saleRepository.save(oldSale);
+            updateSale.setId(id);
+            saleRepository.save(updateSale);
         }
+        return null;
     }
 
 

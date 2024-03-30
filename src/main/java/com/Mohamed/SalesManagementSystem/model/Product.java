@@ -1,5 +1,6 @@
 package com.Mohamed.SalesManagementSystem.model;
 
+import com.Mohamed.SalesManagementSystem.LoggingAndAuditing.AuditableEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,10 +9,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-public class Product {
+public class Product extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +30,7 @@ public class Product {
 
     @NotNull(message = "Date is required")
     @DateTimeFormat()
-    private Date creationDate;
+    private LocalDate creationDate;
 
     @NotNull(message = "Available quantity is required")
     @PositiveOrZero(message = "Available quantity must be non-negative")
@@ -39,7 +40,7 @@ public class Product {
     @PositiveOrZero(message = "Price must be non-negative")
     private double price;
 
-    public Product(Long id, String name, String description, String category, Date creationDate, Integer availableQuantity, Double price) {
+    public Product(Long id, String name, String description, String category, LocalDate creationDate, Integer availableQuantity, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -85,11 +86,11 @@ public class Product {
         this.category = category;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 

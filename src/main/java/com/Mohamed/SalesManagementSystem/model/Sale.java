@@ -1,10 +1,14 @@
 package com.Mohamed.SalesManagementSystem.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Sale {
@@ -14,7 +18,8 @@ public class Sale {
     private Long id;
 
     @NotNull(message = "Date is required")
-    private Date creationDate;
+    @DateTimeFormat()
+    private LocalDate creationDate;
 
     @NotNull(message = "Client name is required")
     private String client;
@@ -22,22 +27,32 @@ public class Sale {
     @NotNull(message = "Seller name is required")
     private String seller;
 
+    @NotNull(message = "Product name is required")
+    private String product;
+
     @NotNull(message = "Total is required")
     @PositiveOrZero(message = "Total must be non-negative")
     private Integer total;
 
-    public Sale(Long id, Date creationDate, String client, String seller, Integer total) {
+    public Sale(Long id, LocalDate creationDate, String client, String seller, Integer total, String product) {
         this.id = id;
         this.creationDate = creationDate;
         this.client = client;
         this.seller = seller;
         this.total = total;
+        this.product = product;
     }
 
     public Sale() {
     }
 
+    public String getProduct() {
+        return product;
+    }
 
+    public void setProduct(String product) {
+        this.product = product;
+    }
 
     public Long getId() {
         return id;
@@ -47,11 +62,11 @@ public class Sale {
         this.id = id;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 

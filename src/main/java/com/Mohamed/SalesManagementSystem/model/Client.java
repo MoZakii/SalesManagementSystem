@@ -1,11 +1,12 @@
 package com.Mohamed.SalesManagementSystem.model;
 
+import com.Mohamed.SalesManagementSystem.LoggingAndAuditing.AuditableEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-public class Client {
+public class Client extends AuditableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

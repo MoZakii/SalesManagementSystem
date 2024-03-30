@@ -4,6 +4,7 @@ import com.Mohamed.SalesManagementSystem.model.Product;
 import com.Mohamed.SalesManagementSystem.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
     public Product createProduct(Product product){
         return productRepository.save(product);
     }
